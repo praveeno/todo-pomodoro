@@ -1,0 +1,48 @@
+<!-- <mat-selection-list #shoes>
+    @for (shoe of typesOfShoes; track shoe) {
+      <mat-list-option checkboxPosition="before">{{shoe}}</mat-list-option>
+    }
+</mat-selection-list> -->
+
+<mat-accordion>
+    @for (shoe of todos; track shoe) {
+    <mat-expansion-panel hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            This is the expansion title
+        </mat-panel-title>
+        <mat-panel-description>
+          <div class="red">00:00</div>
+
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <mat-tab-group selectedIndex="1">
+        <mat-tab label="Notes"> Content 1 </mat-tab>
+        <mat-tab label="Timer">
+            <button mat-stroked-button color="accent">Start</button>
+        </mat-tab>
+        <mat-tab label="Extra"> Content 3 </mat-tab>
+      </mat-tab-group>
+    </mat-expansion-panel>
+    }
+  </mat-accordion>
+  <button mat-fab matTooltip="Primary" color="primary"
+    (click)="addTodo()">
+    <mat-icon>add</mat-icon>
+  </button>
+<style>
+    mat-panel-description {
+        justify-content: end;
+    }
+
+    .red {
+        color: red;
+    }
+
+    button[mat-fab] {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+</style]
+</style>
