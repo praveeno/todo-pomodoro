@@ -13,17 +13,28 @@
           {{$index + 1}} {{todo.title}}
         </mat-panel-title>
         <mat-panel-description>
-          <div class="time-color">{{todo.timeLeft}}</div>
+          <div class="grediant-color">{{todo.timeLeft}}</div>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-tab-group selectedIndex="1">
-        <mat-tab label="Notes"> Content 1 </mat-tab>
+        <mat-tab label="Notes">
+          <div class="row">
+            <h2 class="grediant-color">Add Notes on Task</h2>
+            <button mat-stroked-button color="accent" (click)="saveNote(todo, content.textContent ?? '')">
+              Save
+            </button>
+          </div>
+          <div class="grediant-color" contenteditable="true" #content [textContent]="todo.note || 'Type Here...'"></div>
+        </mat-tab>
         <mat-tab label="Timer">
           <button mat-stroked-button color="accent" (click)="toggleTimer(todo)">
             {{todo.start ? 'Pause' : 'Start'}}
           </button>
+          <button mat-button color="accent" (click)="deleteTodo(todo)">
+            Delete
+          </button>
         </mat-tab>
-        <mat-tab label="Extra"> AI generating... How to do this task...</mat-tab>
+        <mat-tab label="Extra" class="grediant-color"> AI generating... How to do this task...</mat-tab>
       </mat-tab-group>
     </mat-expansion-panel>
     <!-- } -->
@@ -49,13 +60,13 @@
       right: 20px;
   }
 
-  .time-color {
-    /* color: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-
-    background: linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44);
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+  [contenteditable] {
+    height: 100px;
+    width: 100%;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
   }
 </style>

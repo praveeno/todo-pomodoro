@@ -147,4 +147,9 @@ export class TodoListComponent {
       })
     ).subscribe();
   }
+
+  saveNote(todo: any, content: string) {
+    todo.note = content;
+    this.saveLocalStorage();
+  }
 }

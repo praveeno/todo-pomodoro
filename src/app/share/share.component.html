@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Hi {{myName}}, share app with friends</h2>
+<mat-dialog-content>
+  <p>What's your friend name?</p>
+  <mat-form-field>
+    <mat-label>Friend Name</mat-label>
+    <input matInput [(ngModel)]="name" cdkFocusInitial>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>No Thanks</button>
+  <button mat-button [mat-dialog-close]="name">Share</button>
+</mat-dialog-actions>
+
+<style>
+    mat-form-field {
+        width: 100%;
+    }
+</style>

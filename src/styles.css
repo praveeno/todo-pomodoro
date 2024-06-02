@@ -102,3 +102,21 @@ body {
 .filterBlur {
   filter: blur(2px);
 }
+
+@media all and (display-mode: standalone) {
+  .pwa-install-button {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.grediant-color {
+  color: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: auto;
+  animation: gradient 15s ease infinite;
+
+  background: linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
