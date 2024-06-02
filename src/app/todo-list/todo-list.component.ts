@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
 import {MatListModule} from '@angular/material/list';
@@ -22,7 +22,25 @@ export class TodoListComponent {
   readonly #dialog = inject(MatDialog);
   todoTimeHash: Record<string, any> = {};
 
+  constructor() {
+    effect(() => {
+      this.saveLocalStorage()   
+    });
+  }
+
+  saveLocalStorage() {
+    localStorage.setItem('todos', JSON.stringify(this.todos()));
+  }
+  
   ngOnInit() {
+    const storedTodos = localStorage.getItem('todos');
+    if (storedTodos) {
+      this.todos.set(JSON.parse(storedTodos));
+      this.todos().forEach(todo => {
+        todo.start && this.runTimer(todo);
+      });
+    }
+
     if (this.todos().length === 0) {
       this.addTodo();
     }
@@ -47,15 +65,19 @@ export class TodoListComponent {
           result.time = (time[0] / 60) +  time[1];
         }
         const now = +new Date();
-        const todoSignal = signal({
+        const todoSignal = {
           id: Math.random().toString(36).slice(5),
           timestamp: now,
           timeTill: now + (result.time * 60 * 1000),
           start: false,
           ...result
-        }); 
+        }; 
         this.runTimer(todoSignal, true);
-        this.todos.update(todos => [...todos, todoSignal]);
+        this.todos.update(todos => {
+          const _todos = [...todos, todoSignal]
+          // localStorage.setItem('todos', JSON.stringify(_todos));
+          return _todos;
+        });
       }
     });
   }
@@ -64,6 +86,8 @@ export class TodoListComponent {
     todo.start = !todo.start;
     if (todo.start) this.runTimer(todo);
     else clearTimeout(this.todoTimeHash[todo.id]);
+
+    this.saveLocalStorage();
   }
 
   deleteTodo(id: string) {
