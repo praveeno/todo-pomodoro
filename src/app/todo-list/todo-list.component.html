@@ -5,25 +5,28 @@
 </mat-selection-list> -->
 
 <mat-accordion>
-    @for (shoe of todos; track shoe) {
+    @for (todo of todos(); track todo.id) {
+    @if (todo(); as todo) {
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-            This is the expansion title
+          {{$index + 1}} {{todo.title}}
         </mat-panel-title>
         <mat-panel-description>
-          <div class="red">00:00</div>
-
+          <div class="time-color">{{todo.timeLeft}}</div>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-tab-group selectedIndex="1">
         <mat-tab label="Notes"> Content 1 </mat-tab>
         <mat-tab label="Timer">
-            <button mat-stroked-button color="accent">Start</button>
+          <button mat-stroked-button color="accent" (click)="toggleTimer(todo)">
+            {{todo.start ? 'Pause' : 'Start'}}
+          </button>
         </mat-tab>
-        <mat-tab label="Extra"> Content 3 </mat-tab>
+        <mat-tab label="Extra"> AI generating... How to do this task...</mat-tab>
       </mat-tab-group>
     </mat-expansion-panel>
+    }
     }
   </mat-accordion>
   <button mat-fab matTooltip="Primary" color="primary"
@@ -31,18 +34,28 @@
     <mat-icon>add</mat-icon>
   </button>
 <style>
-    mat-panel-description {
-        justify-content: end;
-    }
+  mat-panel-description {
+      justify-content: end;
+      flex-grow: 0;
+  }
 
-    .red {
-        color: red;
-    }
+  .red {
+      color: red;
+  }
 
-    button[mat-fab] {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-    }
-</style]
+  button[mat-fab] {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+  }
+
+  .time-color {
+    /* color: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+
+    background: linear-gradient(to right, #f32170, #ff6b08,#cf23cf, #eedd44);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+  }
 </style>

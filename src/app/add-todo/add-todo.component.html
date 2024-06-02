@@ -1,14 +1,36 @@
 <h2 mat-dialog-title>Add Task</h2>
 <mat-dialog-content>
-  Would you like to delete cat.jpeg?
+  <p>What Would you like to complete today ?</p>
   <mat-form-field appearance="outline">
-    <mat-label>Outline form field</mat-label>
-    <input matInput placeholder="Placeholder" [formControl]="formControl">
-    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-    <mat-hint>Hint</mat-hint>
+    <mat-label>Task Title</mat-label>
+    <input matInput placeholder="3 Bje Chai banani" [(ngModel)]="data.title">
   </mat-form-field>
+  <h3>Task Duration</h3>
+  <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Color selection" 
+    #matChip
+    (change)="updateTimeDuration($event)">
+    @for (chip of availableColors; track chip) {
+      <mat-chip-option [style.width]="'auto'" [color]="chip.color" [value]="chip.value">{{chip.name}}</mat-chip-option>
+    }
+  </mat-chip-listbox>
+  @if (matChip.value === 'Custom') {
+    <mat-form-field appearance="outline" class="margin-top">
+      <mat-label>Task Time</mat-label>
+      <input type="time" matInput placeholder="3 Bje Chai banani" [(ngModel)]="data.time">
+      @if (data.time) {
+        <mat-hint>timer for {{data.time}} min</mat-hint>
+      }
+    </mat-form-field>
+  }
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Just Add</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Start</button>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" [mat-dialog-close]="data"
+    [disabled]="!validate">Add</button>
 </mat-dialog-actions>
+
+<style>
+  .margin-top {
+    margin-top: 16px;
+  }
+</style>
