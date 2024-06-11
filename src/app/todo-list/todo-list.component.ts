@@ -114,6 +114,7 @@ export class TodoListComponent {
         this.runTimer(todo);
       }, 1000);
     } else {
+      todo.timeLeft = 0;
       todo.start = false;
       // Add code to handle timer completion here
     }

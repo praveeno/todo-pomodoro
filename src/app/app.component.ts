@@ -58,7 +58,7 @@ export class AppComponent {
         navigator.share({
           title: 'to-po',
           text: 'Check out Todo Pomodoro',
-          url: 'https://chat-9102d.web.app/?name=' + this.name,
+          url: 'https://chat-9102d.web.app/?name=' + result,
         })
         .then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing', error));

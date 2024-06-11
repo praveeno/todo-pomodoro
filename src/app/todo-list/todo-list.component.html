@@ -10,10 +10,11 @@
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
+          <input type="checkbox" />
           {{$index + 1}} {{todo.title}}
         </mat-panel-title>
         <mat-panel-description>
-          <div class="grediant-color">{{todo.timeLeft}}</div>
+          <div class="grediant-color">{{todo.timeLeft > 0 ? todo.timeLeft: 'Time out'}}</div>
         </mat-panel-description>
       </mat-expansion-panel-header>
       <mat-tab-group selectedIndex="1">
@@ -30,7 +31,7 @@
           <button mat-stroked-button color="accent" (click)="toggleTimer(todo)">
             {{todo.start ? 'Pause' : 'Start'}}
           </button>
-          <button mat-button color="accent" (click)="deleteTodo(todo)">
+          <button mat-button color="accent" (click)="deleteTodo(todo.id)">
             Delete
           </button>
         </mat-tab>
